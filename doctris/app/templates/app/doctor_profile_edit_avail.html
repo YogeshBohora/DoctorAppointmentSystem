@@ -1,0 +1,124 @@
+{% extends 'app/doctor_page.html' %}
+
+{% block home_click %}{% url "app:doctor" %}{% endblock %}
+{% block profile_active %} active {% endblock %}
+
+{% block tab_content %}
+{% if not success %}
+    <div class="ui left aligned ms-5" >
+        <form class="ui form doc-cred-form" action="" method="POST" autocomplete="off">
+            {% csrf_token %} 
+            <div class="ui horizontal divider" style="margin-top: 28px" >Update Your Avaliability</div>
+            <div style="padding:14px;">
+                <div class="field required mt-5">
+                    <label>Day</label>
+                    {% if as_edit %}
+                        <select class="ui dropdown" required name="day_in_week">
+                            <option value="Sunday"
+                                {% if obj.day_in_week == 'Sunday' %}
+                                    selected
+                                {% endif %}
+                            >Sunday</option>
+                            <option value="Monday"
+                                {% if obj.day_in_week == 'Monday' %}
+                                    selected
+                                {% endif %}
+                            >Monday</option>
+                            <option value="Tuesday"
+                                {% if obj.day_in_week == 'Tueday' %}
+                                    selected
+                                {% endif %}
+                            >Tuesday</option>
+                            <option value="Wedneday"
+                                {% if obj.day_in_week == 'Wedneday' %}
+                                    selected
+                                {% endif %}
+                            >Wedneday</option>
+                            <option value="Thursday"
+                                {% if obj.day_in_week == 'Thursday' %}
+                                    selected
+                                {% endif %}
+                            >Thursday</option>
+                            <option value="Friday"
+                                {% if obj.day_in_week == 'Friday' %}
+                                    selected
+                                {% endif %}
+                            >Friday</option>
+                            <option value="Saturday"
+                                {% if obj.day_in_week == 'Saturday' %}
+                                    selected
+                                {% endif %}
+                            >Saturday</option>
+                        </select>
+                    {% endif %}
+                    {% if not as_edit %}
+                        <select class="ui dropdown" name="day_in_week">
+                            <option value="Sunday"
+                            >Sunday</option>
+                            <option value="Monday"
+                            >Monday</option>
+                            <option value="Tuesday"
+                            >Tuesday</option>
+                            <option value="Wedneday"
+                            >Wedneday</option>
+                            <option value="Thursday"
+                            >Thursday</option>
+                            <option value="Friday"
+                            >Friday</option>
+                            <option value="Saturday"
+                            >Saturday</option>
+                        </select>
+                    {% endif %}
+                </div>
+                <div class="field required mt-5">
+                    <label>Start Time</label>
+                    <input type="time" id="starting_time" value="{% if as_edit %}{{obj.starting_time}}{% endif %}" name="starting_time" min="00:00" max="24:00" required>
+                </div>
+                <div class="field required mt-5">
+                    <label>End Time</label>
+                    <input type="time" id="ending_time" name="ending_time"  value="{% if as_edit %}{{obj.ending_time}}{% endif %}" min="00:00" max="24:00" required>
+                </div>
+                <div class="ui error message"></div>
+                {% if invalid_date %}
+                    <div class="ui negative message">
+                        <p> Ending time was before Start time. Please enter again. </p>
+                    </div>
+                {% endif %}
+            </div>
+            <div class="ui horizontal divider" >
+                Proceed
+            </div>
+            <div style="padding: 14px">
+                <div style="display:flex; justify-content:center; padding: 14px; ">
+                    <button class="ui teal button"type="submit" style="margin-top: 5px;  background-color: #5174D5; color: white; font-weight: bolder;">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="ui center aligned basic segment" style="margin-top: 60px;">
+        <h1 class="ui icon header">
+            <i class="check circle huge icon"></i>
+            Success
+        </h1>
+        <div class="ui horizontal divider" style="margin-top: 55px;">
+            &nbsp;
+        </div>
+        <div>
+            <a class="ui teal icon labeled button" autofocus type="submit" autofocus href="{% url "app:admin" "doctor" %}" >
+                Profile
+                <i class="eye icon" style="color:white"></i>
+            </a>
+            <a class="ui teal labeled icon button" type="submit" href="{% url "app:doctoractionavail" '-1' %}" >
+                Add Another 
+                <i class="add icon" style="color:white"></i>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

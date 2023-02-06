@@ -1,0 +1,14 @@
+{% extends 'app/patient_page.html' %}
+
+{% block home_click %}{% url "app:patient" %}{% endblock %}
+{% block profile_active %} active {% endblock %}
+
+{% block tab_content %}
+    {% include './components/doctor_profile.html' %}
+    <div class="ui center aligned basic segment">
+        <a class="ui teal labeled icon button" href="{% url 'app:patientdocappoint' doctor.username '-1'  %}">
+            Set Appointment
+            <i class="add icon" style="color:white"></i>
+        </a>
+    </div>
+{% endblock %}

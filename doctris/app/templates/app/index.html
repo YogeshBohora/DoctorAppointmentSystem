@@ -1,0 +1,20 @@
+{% extends 'app/base.html' %}
+{% block title %}YouAppoint{% endblock %}
+
+{% block nav%}
+    <nav>
+        <div class="ui secondary  menu">
+            <a class="item logo large header" href="{% url "app:index" %}"> You <span class="ui teal">Appoint</span> </a>
+            <div class="right menu">
+                <a href="{% url "app:login" %}" class="ui item" id="sidebar-toggle"> Log In </a>
+                <a href="{% url "app:signup" %}" class="ui item" id="sidebar-toggle"> Sign Up </a>
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+<section class="home-page">
+    Home Page!
+</section>
+{% endblock %}

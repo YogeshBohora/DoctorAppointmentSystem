@@ -1,0 +1,82 @@
+{% extends 'app/doctor_page.html' %}
+
+{% block home_click %}{% url "app:doctor" %}{% endblock %}
+{% block profile_active %} active {% endblock %}
+
+{% block tab_content %}
+{% if not success %}
+    <div class="ui left aligned ms-5" >
+        <form class="ui form doc-cred-form" action="" method="POST" autocomplete="off">
+            {% csrf_token %} 
+            <div class="ui horizontal divider" style="margin-top: 28px" >Update Hospital Affiliations</div>
+            <div style="padding:14px;">
+                <div class="field required mt-5">
+                    <label>Hospital Name</label>
+                    {% if as_edit %}
+                        <input type="text" name="hospital_name" value="{{obj.hospital_name}}" placeholder="Hospital Name" required autocomplete="off">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input type="text" name="hospital_name" placeholder="Hospital Name" required autocomplete="off">
+                    {% endif %}
+                </div>
+                <div class="field required mt-5">
+                    <label>City</label>
+                    {% if as_edit %}
+                        <input type="text" name="city" value="{{obj.city}}" placeholder="City" required autocomplete="off">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input type="text" name="city" placeholder="City" required autocomplete="off">
+                    {% endif %}
+                </div>
+                <div class="field required mt-5">
+                    <label>Country</label>
+                    {% if as_edit %}
+                        <input type="text" name="country" value="{{obj.country}}" placeholder="Country" required autocomplete="off">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input type="text" name="country" placeholder="Country" required autocomplete="off">
+                    {% endif %}
+                </div>
+                <div class="field mt-5">
+                    <label>Description</label>
+                    {% if as_edit %}
+                        <textarea rows="2" name="description"> {{obj.description}} </textarea>
+                    {% endif %}
+                    {% if not as_edit %}
+                        <textarea rows="2" name="description">-</textarea>
+                    {% endif %}
+                </div>
+                <div class="ui error message"></div>
+            </div>
+            <div style="display:flex; justify-content:center;padding: 14px;">
+                <button class="ui teal button"type="submit" style="margin-top: 5px; background-color: #5174D5; color: white; font-weight: bolder;">
+                    Submit
+                </button>
+            </div>
+        </form>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="ui center aligned basic segment" style="margin-top: 60px;">
+        <h1 class="ui icon header">
+            <i class="check circle huge icon"></i>
+            Success
+        </h1>
+        <div class="ui horizontal divider" style="margin-top: 55px;">
+            &nbsp;
+        </div>
+        <div>
+            <a class="ui teal icon labeled button" type="submit" autofocus href="{% url "app:admin" "doctor" %}" >
+                Profile
+                <i class="eye icon" style="color:white"></i>
+            </a>
+            <a class="ui teal labeled icon button" type="submit" href="{% url "app:doctoractionaff" '-1' %}" >
+                Add Another 
+                <i class="add icon" style="color:white"></i>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

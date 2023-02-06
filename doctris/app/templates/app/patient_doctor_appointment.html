@@ -1,0 +1,8 @@
+{% extends 'app/patient_page.html' %}
+
+{% block home_click %}{% url "app:patient" %}{% endblock %}
+{% block appointments_active %} active {% endblock %}
+
+{% block tab_content %}
+    {% include './components/appointment_form.html' %}
+{% endblock %}

@@ -1,0 +1,108 @@
+{% extends 'app/base.html' %}
+{% block title %}Doctris | Sign Up{% endblock %}
+
+
+{% block body %}
+<section class="admin-page">
+
+    {% if not success %}
+        <div class="col-xs-1 text-center mt-5 pt-5" >
+            <a class="" href="{% url "app:index" %}"> 
+                <img src="../../static/app/images/doctris-logo.png" class="img-fluid" width="150px">
+            </a>
+            <form class="admin-pat-form" action="" method="POST" autocomplete="off">
+                {% csrf_token %} 
+                <div class="">
+                    <div class="field required mt-5">
+                        
+                        {% if as_edit %}
+                            <input class="px-2" type="text" name="username" value="{{obj.username}}" placeholder="Username" required autocomplete="off">
+                        {% endif %}
+                        {% if not as_edit %}
+                            <input class="px-2" type="text" name="username" placeholder="Username" required autocomplete="off">
+                        {% endif %}
+                    </div>
+                    <div class="field required mt-3">
+                        {% if not as_edit %}
+                         
+                            <input type="password" class="px-2" name="password"  pattern=".{6,}" title="Needs to be atleast 6 characters long." placeholder="Password" required autocomplete="off">
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="field required">
+                    <div class="two fields">
+                        <div class="field required mt-3">
+                       
+                            {% if as_edit %}
+                                <input type="text" class="px-2" name="first_name" value="{{obj.first_name}}" required placeholder="First Name">
+                            {% endif %}
+                            {% if not as_edit %}
+                                <input type="text" class="px-2" name="first_name" required placeholder="First Name">
+                            {% endif %}
+                        </div>
+                        <div class="field required mt-3">
+                      
+                            {% if as_edit %}
+                                <input type="text" class="px-2" name="last_name" value="{{obj.last_name}}" required placeholder="Last Name">
+                            {% endif %}
+                            {% if not as_edit %}
+                                <input type="text" class="px-2" name="last_name" required placeholder="Last Name">
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="field mt-3">
+      
+                    {% if as_edit %}
+                        <input type="email" class="px-2" name='email' value="{{obj.email}}" placeholder="Email">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input type="email" class="px-2" name='email' placeholder="Email">
+                    {% endif %}
+                </div>
+                <div class="field required mt-3">
+         
+                    {% if as_edit %}
+                        <input type="text" class="px-2" name='phone' value="{{obj.phone}}" pattern=".{10,10}" required title="Needs to be 10 characters long." placeholder="Phone">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input type="text" class="px-2" name='phone'  pattern=".{10,10}" required title="Needs to be 10 characters long." placeholder="Phone">
+                    {% endif %}
+                </div>
+                <div class="ui error message mt-5"></div>
+                {% if user_invalid %}
+                    <div class="ui negative message">
+                        <p> The username is invalid. Please try another. </p>
+                    </div>
+                {% endif %}
+               <hr>
+                <button class="button" type="submit" style="color: #5174D5; background-color: transparent; border: 1px solid #5174D5;" >
+                    Register
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div class="ui center aligned basic segment" style="margin-top: 60px;">
+            <h1 class="ui icon header">
+                <i class="check circle huge icon"></i>
+                Success
+            </h1>
+            <div class="ui horizontal divider" style="margin-top: 60px;">
+                &nbsp;
+            </div>
+            <div>
+                <a class=""type="submit" autofocus href="{% url "app:login"%}" style="color: #5174D5;">
+                    Log In
+                    <i class="sign-in icon" style="color:white" ></i>
+                </a>
+                <a class="ui teal labeled icon button"type="submit" autofocus href="{% url "app:index"%}" >
+                    Return Home
+                    <i class="home icon" style="color:white" ></i>
+                </a>
+            </div>
+        </div>
+    {% endif %}
+</section>
+{% endblock %}

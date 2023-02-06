@@ -1,0 +1,71 @@
+{% extends 'app/doctor_page.html' %}
+
+{% block home_click %}{% url "app:doctor" %}{% endblock %}
+{% block profile_active %} active {% endblock %}
+
+{% block tab_content %}
+{% if not success %}
+    <div class="ui left aligned ms-5" >
+        <form class="ui form admin-pat-form" action="" method="POST" autocomplete="off">
+            {% csrf_token %} 
+                <div class="ui horizontal divider" style="margin-top: 28px" >Update Profile Info</div>
+                <div style="padding: 14px;">
+                    <div class="field required mt-5">
+                        <label>First Name</label>
+                        <input type="text" name="first_name" value="{{obj.first_name}}" required placeholder="First Name">
+                    </div>
+                    <div class="field required mt-5">
+                        <label>Last Name</label>
+                        <input type="text" name="last_name" value="{{obj.last_name}}" required placeholder="Last Name">
+                    </div>
+                    <div class="field mt-5">
+                        <label>Email</label>
+                        <input type="email" name='email' value="{{obj.email}}" placeholder="Email">
+                    </div>
+                    <div class="field required mt-5">
+                        <label>Phone</label>
+                        <input type="text" name='phone' value="{{obj.phone}}" pattern=".{10,10}" required title="Needs to be 10 characters long." placeholder="Phone">
+                    </div>
+                    <div class="ui error message mt-5"></div>
+                    {% if password_invalid %}
+                        <div class="ui negative message">
+                            <p> The password is incorrect. </p>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="ui horizontal divider" >
+                    Credential
+                </div>
+            <div style="padding: 14px">
+                <div class="field required">
+                    <label>Password</label>
+                    <input type="password" name="password"  pattern=".{6,}" title="Needs to be atleast 6 characters long." placeholder="Password" required autocomplete="off">
+                </div>
+                <div style="display:flex; justify-content:center;">
+                    <button class="ui teal button"type="submit" style="margin-top: 5px; background-color: #5174D5; color: white; font-weight: bolder;">
+                        Submit
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="ui center aligned basic segment" style="margin-top: 60px;">
+        <h1 class="ui icon header">
+            <i class="check circle huge icon"></i>
+            Success
+        </h1>
+        <div class="ui horizontal divider" style="margin-top: 55px;">
+            &nbsp;
+        </div>
+        <div>
+            <a class="ui teal button"type="submit" autofocus href="{% url "app:admin" "doctor" %}" >
+                View Profile
+            </a>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

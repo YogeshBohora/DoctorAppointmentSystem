@@ -1,0 +1,5 @@
+    {% include './infoList/appointments.html' with obj=todays_appointments has_edit=True as_custom=True title="Today's Appointments" has_patient_edit=has_patient_edit as_patient=as_patient %}
+
+    {% include './infoList/appointments.html'  with obj=upcomming_appointments has_edit=True as_custom=True title="Upcomming Appointments" has_patient_edit=has_patient_edit as_patient=as_patient %}
+
+    {% include './infoList/appointments.html'  with obj=past_appointments show_status=True has_edit=False as_custom=True title="Past Appointments" has_patient_edit=has_patient_edit as_patient=as_patient %}

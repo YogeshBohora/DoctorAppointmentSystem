@@ -1,0 +1,54 @@
+{% extends 'app/admin_page.html' %}
+
+{% block home_click %}{% url "app:admin" "doctor" %}{% endblock %}
+{% block doc_active %}active{% endblock %}
+
+{% block tab_content %}
+<div class="ui center aligned basic segment mt-5">
+    <div  class="pt-5 w-75 mx-auto">
+        <div class="d-flex flex-row align-items-center" style="background-color: white; border-radius: 7px;">
+            <div>
+                <img src="../../static/app/images/hero-illustration.png" style="height: 100px;" alt="Banner" class="img-fluid">
+            </div>
+            <div> Welcome, Add new doctors here.</div>
+            <a class="ui teal button ms-3" href="{% url 'app:adminadddoc' %}">
+                Add New Doctor
+            </a>
+
+        </div>
+        
+    </div>
+    <div class="ui link cards w-75 mx-auto mb-5">
+        {% for doc in doctors %}
+            <div class="card mt-5 p-1 d-flex flex-row justify-content-between" style="background-color: white; border: 0; border-left: 1px solid #5174D5;">
+                <div>
+                    <div class="content left aligned ms-3">
+                        <div class="header">{{ doc.full_name }}</div>
+                        <div class="meta">
+                            <a>@{{ doc.username }}</a>
+                        </div>
+                    </div>
+                    <div class="content left aligned ms-3 p-1">
+                        <div class="description">
+                            {{ doc.admin_note }} <br/><br/>
+                            Last Updated on : {{ doc.get_updated_on_date }}<br/>
+                            Created on : {{ doc.get_created_on_date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="extra content ms-3 p-1" >
+                    <span class="right floated">
+                        <a class="ui icon button p-2" href="{% url "app:admineditdoc" doc.username %}" style="color: black;">
+                            edit
+                        </a>
+                        <a class="ui icon button p-2" href="{% url "app:admindeletedoc" doc.username %}" style="color: black;">
+                            delete
+                        </a>
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    
+</div>
+{% endblock %}

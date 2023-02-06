@@ -1,0 +1,32 @@
+<div class="ui horizontal divider ms-5" >
+    {% if as_doctor %}
+        Your Hospital Affiliations
+    {% else %}
+        Doctor's Hospital Affiliations
+    {% endif %}
+</div>
+<div class="ms-5" style="padding:14px;">
+    {% for hosp in hospitals %}
+        <div class="cust-list">
+            <div>
+                <div class="profile-header">
+                    {{ hosp.hospital_name }}
+                </div>
+                <div class="profile-username">
+                    @ {{ hosp.city }}, {{hosp.country}}
+                </div>
+                <br/>
+            </div>
+            {% if as_doctor %}
+                <div class="cust-reveal">
+                    <a class="ui icon button" style="margin-right:13px" href="{% url "app:doctoractionaff" hosp.pk %}"  >
+                        <i class="pencil alternate icon"></i>
+                    </a>
+                    <a class="ui icon button" href="{% url "app:doctordeleterelation" "affiliations" hosp.pk %}" >
+                        <i class="trash alternate icon"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

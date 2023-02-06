@@ -1,0 +1,84 @@
+{% extends 'app/base.html' %}
+{% block title %}YouAppoint | Doctor{% endblock %}
+
+{% block nav%}
+    <nav>
+        <div class="ui secondary  menu">
+            <a class="item logo large header" href="{% url "app:doctor" %}"> You <span>Appoint</span> </a>
+            <div class="right menu">
+                {% if needs_login %}
+                    <a href="{% url "app:login" %}" class="ui item" id="sidebar-toggle"> Log In </a>
+                {% endif %}
+                {% if not needs_login %}
+                    <a href="{% url "app:logout" %}" class="ui item" id="sidebar-toggle"> Log Out </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+{% endblock %}
+
+{% block body %}
+<section class="admin-page">
+    <div class="">
+        <div style="padding:7px;"></div>
+        <div class="ui horizontal divider" >
+           <i class="exclamation triangle yellow icon"></i> Your Reminders
+        </div>
+        <div style="padding:14px;">
+            {% if notifications|length > 0 %}
+                <div style="padding:3.5px;"></div>
+                <div class="ui yellow segment">
+                    <div class='cust-list'>
+                        <h4 class="ui header">{{notifications|length}} Unseen Notifications</h4>
+                        <a class="ui teal button" href="{% url "app:doctornotif" %}">See Notifications</a>
+                    </div>
+                    <p>
+                        You have {{notifications|length}} notifications
+                    </p>
+                </div>
+            {%endif%}
+            {% if today|length > 0 or after_one_day|length > 0 or upcomming_appointments|length > 0 %}
+                <div style="padding:7px;"></div>
+                <div class="ui pink segments">
+                    {% if today|length > 0 %}
+                        <div class="ui segment">
+                            <div class='cust-list'>
+                                <h4 class="ui header"> {{today|length}} Appointments Todays</h4>
+                                <a class="ui teal button"  href="{% url "app:doctorappointments" %}">See Appointments</a>
+                            </div>
+                            <p>
+                                You have {{today|length}} notifications
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if after_one_day|length > 0 %}
+                        <div class="ui pink segment">
+                            <div class='cust-list'>
+                                <h4 class="ui header"> {{after_one_day|length}} Appointments Tomorrow</h4>
+                                <a class="ui teal button"  href="{% url "app:doctorappointments" %}">See Appointments</a>
+                            </div>
+                            <p>
+                                You have {{after_one_day|length}} notifications
+                            </p>
+                        </div>
+                    {% endif %}
+                    {% if upcomming_appointments|length > 0 %}
+                        <div class="ui pink segment">
+                            <div class='cust-list'>
+                                <h4 class="ui header"> {{upcomming_appointments|length}} Upcomming Appointments</h4>
+                                <a class="ui teal button"  href="{% url "app:doctorappointments" %}">See Appointments</a>
+                            </div>
+                            <p>
+                                You have {{upcomming_appointments|length}} notifications
+                            </p>
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+            <div style="display:flex; justify-content:center">
+                <a class="ui button"  href="{% url "app:disablereminder" %}">Dont Show Again</a>
+            </div
+        </div>
+    </div>
+</section>
+{% endblock %}

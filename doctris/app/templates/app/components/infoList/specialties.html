@@ -1,0 +1,32 @@
+<div class="ui horizontal divider ms-5" >
+    {% if as_doctor %}
+        Your Specialities
+    {% else %}
+        Doctor's Specialities
+    {% endif %}
+</div>
+<div class="ms-5" style="padding:14px;">
+    {% for spec in obj %}
+        <div class="cust-list">
+            <div>
+                <div class="profile-header">
+                    {{ spec.specialization_in }}
+                </div>
+                <div class="profile-username">
+                    {{ spec.description }}
+                </div>
+                <br/>
+            </div>
+            {% if as_doctor %}
+                <div class="cust-reveal">
+                    <a class="ui icon button" style="margin-right:13px" href="{% url "app:doctoractionspec" spec.pk %}" >
+                        <i class="pencil alternate icon"></i>
+                    </a>
+                    <a class="ui icon button"  href="{% url "app:doctordeleterelation" "speciality" spec.pk %}" >
+                        <i class="trash alternate icon"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

@@ -1,0 +1,11 @@
+{% extends 'app/admin_page.html' %}
+
+{% block home_click %}{% url "app:admin" "adminreviewappoint" %}{% endblock %}
+{% block review_appointments_active %}active{% endblock %}
+
+{% block tab_content %}
+    <div style="padding:7px;"></div>
+    
+    {% include './components/infoList/appointments.html'  with obj=review_appointments has_edit=False show_status=False as_admin=True as_custom=True title="Review Appointments" %}
+
+{% endblock %}

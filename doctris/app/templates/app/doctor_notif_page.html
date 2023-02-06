@@ -1,0 +1,20 @@
+{% extends 'app/doctor_page.html' %}
+
+{% block home_click %}{% url "app:doctor" %}{% endblock %}
+{% block notification_active %} active {% endblock %}
+{% block right_menu%}
+    <div class="ui simple dropdown item">
+        General Actions
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a class="item"  href="{% url 'app:doctoreditinfo' %}" >Update Info</a>
+            <a class="item"  href="{% url 'app:doctoreditcred' %}" >Change Password</a>
+            <a class="item"  href="{% url "app:doctoractionavail" '-1' %}" >Add Avaliability</a>
+            <a class="item" href="{% url "app:doctoractionspec" '-1' %}" >Add Specialties</a>
+            <a class="item" href="{% url "app:doctoractionaff" '-1' %}" >Add Affiliations</a>
+        </div>
+    </div>
+{% endblock %}
+{% block tab_content %}
+    {% include './components/notifications.html' %}
+{% endblock %}

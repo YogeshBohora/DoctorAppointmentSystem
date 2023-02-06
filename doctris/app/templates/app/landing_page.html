@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Doctris{% endblock %}</title>
+        <link rel = "icon" href ="../../static/app/images/logo.png" type = "image/x-icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        {% load static %}
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-q2kxQ16AaE6UbzuKqyBE9/u/KzioAlnx2maXQHiDX9d4/zp8Ok3f+M7DPm+Ib6IU" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.min.js" integrity="sha384-pQQkAEnwaBkjpqZ8RU1fF1AKtTcHJwFl3pblpTlHXybJjHpMYo79HY3hIi4NKxyj" crossorigin="anonymous"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js" crossorigin="anonymous"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <!--app javascript files-->
+        {% comment %} <link rel="stylesheet" type="text/css" href="{% static 'app/landing.css' %}"/> {% endcomment %}
+        <link rel="stylesheet" type="text/css" href="{% static 'app/style.css' %}"/>
+    </head>
+    <body>
+        <nav>
+            <div class="ui secondary mt-3 menu">
+                <a class="" href="{% url "app:doctor" %}"> 
+                    <img src="../../static/app/images/doctris-logo.png" class="img-fluid" width="150px">
+                </a>
+                <div class="right menu">
+                    <a href="{% url "app:login" %}" class="ui button item" id="sidebar-toggle" style="color:#5174D5;"> Log In </a>
+                    <a href="{% url "app:signup" %}" class="ui item button " id="sidebar-toggle"> Sign Up </a>
+                </div>
+            </div>
+        </nav>
+        <div class="row no-gutters m-5 pt-5">
+            <div class="col-6">
+                <div class="title mt-5" style="font-size: 21px; font-weight: bold;">
+                    Health <span style="color: #5174D5">care</span> made easy.
+
+                </div>
+                <div class="description mt-5" style="font-size: 21px;">
+                    <p>
+                        Most efficient and quick way for a well-tuned hospital management workflow that involves a lot of important decisions.
+                    </p>
+                    <p class="mt-2">
+                        This is a hospital management system provides automation of many vital daily processes. We simplify the work of healthcare professionals as well as their interactions with patients.
+                    </p>
+
+                </div>
+                <div class="mt-5 text-center">
+                    <a  href="{% url "app:doctor" %}" class="get-started ui item button px-5 py-2" style="color: #5174D5;">
+                        GET STARTED
+                    </a>
+
+                </div>
+
+            </div>
+            <div class="col-6">
+
+                <img src="../../static/app/images/hero-illustration.png" class="img-fluid">
+
+            </div>
+
+        </div>
+    </body>
+</html>

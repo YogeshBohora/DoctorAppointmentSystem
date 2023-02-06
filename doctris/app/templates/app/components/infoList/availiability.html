@@ -1,0 +1,32 @@
+<div class="ui horizontal divider ms-5" >
+    {% if as_doctor %}
+        Your Working Hours
+    {% else %}
+        Doctor's Working Hours
+    {% endif %}
+</div>
+<div class="ms-5" style="padding:14px;">
+    {% for avail in avaliability %}
+        <div class="cust-list">
+            <div>
+                <div class="profile-header">
+                    {{ avail.day_in_week }}
+                </div>
+                <div class="profile-username">
+                    @ {{ avail.starting_time }} - {{ avail.ending_time }}
+                </div>
+                <br/>
+            </div>
+            {% if as_doctor %}
+                <div class="cust-reveal">
+                    <a class="ui icon button" style="margin-right:13px" href="{% url "app:doctoractionavail" avail.pk %}" >
+                        <i class="pencil alternate icon"></i>
+                    </a>
+                    <a class="ui icon button" href="{% url "app:doctordeleterelation" "avaliability" avail.pk %}" >
+                        <i class="trash alternate icon"></i>
+                    </a>
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

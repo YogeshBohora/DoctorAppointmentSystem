@@ -1,0 +1,19 @@
+{% extends 'app/patient_page.html' %}
+
+{% block home_click %}{% url "app:patient" %}{% endblock %}
+{% block appointments_active %} active {% endblock %}
+{% block right_menu%}
+    <div class="ui simple dropdown item">
+        General Actions
+        <i class="dropdown icon"></i>
+        <div class="menu">
+            <a class="item"  href="{% url 'app:patienteditinfo' %}" >Update Info</a>
+            <a class="item"  href="{% url 'app:patienteditcred' %}" >Change Password</a>
+        </div>
+    </div>
+{% endblock %}
+
+{% block tab_content %}
+    <div style="padding:7px;"></div>
+    {% include './components/appointments.html' with has_patient_edit=True as_patient=True %}
+{% endblock %}

@@ -1,0 +1,117 @@
+{% extends 'app/admin_page.html' %}
+
+{% block home_click %}{% url "app:admin" "patient" %}{% endblock %}
+{% block patient_active %}active{% endblock %}
+
+{% block tab_content %}
+{% if not success %}
+    <div class="ui left aligned basic segment ms-5 mt-5" >
+        <form class="ui form admin-pat-form" action="" method="POST" autocomplete="off">
+            {% csrf_token %} 
+            <h4 class="ui dividing header" >Register New Patient</h4>
+            <div class="two fields mt-5">
+                <div class="field required py-3">
+                    <label>Username</label>
+                    {% if as_edit %}
+                        <input class="ms-3 p-2" type="text" name="username" value="{{obj.username}}" placeholder="Username" required autocomplete="off">
+                    {% endif %}
+                    {% if not as_edit %}
+                        <input class="ms-3 p-2" type="text" name="username" placeholder="Username" required autocomplete="off">
+                    {% endif %}
+                </div>
+                <div class="field required py-3">
+                    {% if not as_edit %}
+                        <label>Password</label>
+                        <input class="ms-3 p-2" type="password" name="password"  pattern=".{6,}" title="Needs to be atleast 6 characters long." placeholder="Password" required autocomplete="off">
+                    {% endif %}
+                </div>
+            </div>
+            <div class="field required py-3">
+                <div class="two fields">
+                    <div class="field required">
+                        <label>First Name</label>
+                        {% if as_edit %}
+                            <input class="ms-3 p-2" type="text" name="first_name" value="{{obj.first_name}}" required placeholder="First Name">
+                        {% endif %}
+                        {% if not as_edit %}
+                            <input class="ms-3 p-2" type="text" name="first_name" required placeholder="First Name">
+                        {% endif %}
+                    </div>
+                    <div class="field required py-3">
+                        <label>Last Name</label>
+                        {% if as_edit %}
+                            <input class="ms-3 p-2" type="text" name="last_name" value="{{obj.last_name}}" required placeholder="Last Name">
+                        {% endif %}
+                        {% if not as_edit %}
+                            <input class="ms-3 p-2" type="text" name="last_name" required placeholder="Last Name">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="field py-3">
+                <label>Email</label>
+                {% if as_edit %}
+                    <input class="ms-3 p-2" type="email" name='email' value="{{obj.email}}" placeholder="Email">
+                {% endif %}
+                {% if not as_edit %}
+                    <input class="ms-3 p-2" type="email" name='email' placeholder="Email">
+                {% endif %}
+            </div>
+            <div class="field required py-3">
+                <label>Phone</label>
+                {% if as_edit %}
+                    <input class="ms-3 p-2" type="text" name='phone' value="{{obj.phone}}" pattern=".{10,10}" required title="Needs to be 10 characters long." placeholder="Phone">
+                {% endif %}
+                {% if not as_edit %}
+                    <input class="ms-3 p-2" type="text" name='phone'  pattern=".{10,10}" required title="Needs to be 10 characters long." placeholder="Phone">
+                {% endif %}
+            </div>
+            <div class="field py-3">
+                <label>Admin Notes</label>
+                {% if as_edit %}
+                    <textarea class="ms-3 p-2" rows="2" name="admin_note"> {{obj.admin_note}} </textarea>
+                {% endif %}
+                {% if not as_edit %}
+                    <textarea class="ms-3 p-2" rows="2" name="admin_note">-</textarea>
+                {% endif %}
+            </div>
+            <div class="ui error message"></div>
+            {% if user_invalid %}
+                <div class="ui negative message">
+                    <p> The username is invalid. Please try another. </p>
+                </div>
+            {% endif %}
+            <div class="ui horizontal divider" style="margin-top: 60px;">
+                &nbsp;
+            </div>
+            <button class="ui teal button"type="submit" style="background-color: #5174D5; color: white; font-weight: bold; border: none;" >
+                Submit
+            </button>
+        </form>
+    </div>
+{% endif %}
+
+{% if success %}
+    <div class="ui center aligned basic segment" style="margin-top: 60px;">
+        <h1 class="ui icon header">
+            <i class="check circle huge icon"></i>
+            Success
+        </h1>
+        <div class="ui horizontal divider" style="margin-top: 60px;">
+            &nbsp;
+        </div>
+        <div>
+            <a class="ui teal  labeled icon button"type="submit" autofocus href="{% url "app:admin" "patient" %}" >
+                View Patient
+                <i class="eye icon" style="color:white" ></i>
+            </a>
+            {% if not as_edit %}
+                <a class="ui teal labeled icon button"type="submit" href="{% url "app:adminaddpat" %}" >
+                    New Patient
+                    <i class="add icon" style="color:white"></i>
+                </a>
+            {% endif %}
+        </div>
+    </div>
+{% endif %}
+{% endblock %}

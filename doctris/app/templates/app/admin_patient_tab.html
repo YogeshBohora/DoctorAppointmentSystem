@@ -1,0 +1,54 @@
+{% extends 'app/admin_page.html' %}
+
+{% block home_click %}{% url "app:admin" "patient" %}{% endblock %}
+{% block patient_active %}active{% endblock %}
+
+{% block tab_content %}
+
+<div class="ui center aligned basic segment">
+    <div  class="pt-5 w-75 mx-auto">
+        <div class="d-flex flex-row align-items-center" style="background-color: white; border-radius: 7px;">
+            <div>
+                <img src="../../static/app/images/hero-illustration.png" style="height: 100px;" alt="Banner" class="img-fluid">
+            </div>
+            <div> Welcome, Add new patients here.</div>
+            <a class="ui teal button ms-3"  href="{% url "app:adminaddpat" %}">
+                Add New Patient
+            </a>
+
+        </div>
+        
+    </div>
+    <div class="ui link cards w-75 mx-auto mb-5" >
+        {% for pat in patients %}
+            <div class="card mt-5 p-1 d-flex flex-row justify-content-between" style="background-color: white; border: 0; border-left: 1px solid #5174D5;" >
+                <div class="ms-3">
+                    <div class="content left aligned ">
+                        <div class="header">{{ pat.full_name }}</div>
+                        <div class="meta">
+                            <a>@{{ pat.username }}</a>
+                        </div>
+                    </div>
+                    <div class="content left aligned ">
+                        <div class="description">
+                            {{ pat.admin_note }} <br/><br/>
+                            Last Updated on : {{ pat.get_updated_on_date }}<br/>
+                            Created on : {{ pat.get_created_on_date }}
+                        </div>
+                    </div>
+                </div>
+                <div class="extra content " >
+                    <span class="right floated">
+                        <a class="ui icon button p-2"  href="{% url "app:admineditpat"  pat.username  %}" style="color: black;">
+                            Edit
+                        </a>
+                        <a class="ui icon button p-2" href="{% url "app:admindeletepat" pat.username %}" style="color: black;">
+                            Delete
+                        </a>
+                    </span>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

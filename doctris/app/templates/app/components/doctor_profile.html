@@ -1,0 +1,18 @@
+<div class="ms-5 mt-5" style="padding:14px; position:relative">
+    <div class="profile-header">
+        Dr. {{ doctor.full_name }}
+    </div>
+    <div class="profile-username">
+        @ {{ doctor.username }}
+    </div>
+    <br/>
+    <div class="profile-default">
+        email: &nbsp; {{ doctor.email }}
+    </div>
+    <div class="profile-default">
+        phone: &nbsp; {{ doctor.phone }}
+    </div>
+</div>
+{% include './infoList/availiability.html' with as_doctor=as_doctor obj=avaliability %}
+{% include './infoList/specialties.html' with as_doctor=as_doctor obj=specializations %}
+{% include './infoList/hospital_affiliation.html' with as_doctor=as_doctor obj=hospitals %}

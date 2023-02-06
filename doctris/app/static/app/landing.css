@@ -1,0 +1,47 @@
+
+  .txt{
+    line-height: 35px;
+    font-size: 1em;
+  }
+  .highlight{
+    color: var(--primary);
+  }
+  .description{
+    font-size: 25px;
+
+  }
+  
+  @media screen and (min-width: 1600px) {
+    :root{
+      --gap: 30px;
+    } 
+    .txt{
+      font-size: 1rem;
+    }
+  }
+  @media screen and (max-width: 1600px) {
+    :root{
+      --gap: 25px;
+    } 
+  }
+  @media screen and (max-width: 1400px) {
+    :root{
+      --gap: 20px;
+    } 
+    h1{
+      font-size: 1.5em;
+    }
+  }
+  @media screen and (max-width: 1000px) {
+    :root{
+      --gap: 40px;
+    }
+    h1{
+      font-size: 1.75em;
+    }
+  }
+  @media screen and (max-width: 999px) {
+    body{
+      font-size: 14px;
+    }
+  }

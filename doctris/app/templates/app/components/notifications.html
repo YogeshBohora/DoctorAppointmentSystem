@@ -1,0 +1,53 @@
+<div style="padding:7px;"></div>
+    <div class="ui horizontal divider mt-5 ms-5" >
+        New notifications
+    </div>
+    <div class="ms-5" style="padding:14px;">
+        {% for notif in unseen %}
+            <div class="cust-list">
+                <div>
+                    <div class="profile-header">
+                        {{ notif.title }}
+                    </div>
+                    <div class="profile-username">
+                        {{ notif.description }}
+                    </div>
+                    <br/>
+                </div>
+                <div class="cust-reveal">
+                    <a class="ui icon button" style="margin-right:13px" href="{% url "app:notiftoggle" notif.pk %}" >
+                        <i class="eye slash alternate icon"></i>
+                    </a>
+                    <a class="ui icon button"  href="{% url "app:notifdelete" notif.pk %}" >
+                        <i class="trash alternate icon"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+    <div class="ui horizontal divider ms-5" >
+        Seen notifications
+    </div>
+    <div class="ms-5" style="padding:14px;">
+        {% for notif in seen %}
+            <div class="cust-list">
+                <div>
+                    <div class="profile-header">
+                        {{ notif.title }}
+                    </div>
+                    <div class="profile-username">
+                        {{ notif.description }}
+                    </div>
+                    <br/>
+                </div>
+                <div class="cust-reveal">
+                    <a class="ui icon button" style="margin-right:13px" href="{% url "app:notiftoggle" notif.pk %}" >
+                        <i class="eye alternate icon"></i>
+                    </a>
+                    <a class="ui icon button"  href="{% url "app:notifdelete" notif.pk %}" >
+                        <i class="trash alternate icon"></i>
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>

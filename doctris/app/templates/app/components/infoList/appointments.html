@@ -1,0 +1,51 @@
+<div class="ui horizontal divider ms-5" >
+    {% if as_doctor or as_custom %}
+        {{title}}
+    {% else %}
+        Doctor's Appointments
+    {% endif %}
+</div>
+<div class="ms-5 mt-5">
+    {% for appoint in obj %}
+        <div class="cust-list w-75 p-1" style="background-color: white; border-left: 2px solid #5174D5;">
+            <div class="ms-3">
+                <div class="profile-header">
+                    {% if as_patient %}
+                        Dr. {{ appoint.doctor.full_name }}
+                    {% else %}
+                        {% if as_admin %}
+                            By {{ appoint.patient.full_name }} &nbsp; to &nbsp; Dr. {{ appoint.doctor.full_name }}
+                        {% else %}
+                            By {{ appoint.patient.full_name }}
+                        {% endif %}
+                    {% endif %}
+                    {% if show_status %}
+                        &nbsp;-&nbsp;{{ appoint.status.status }}
+                    {% endif %}
+                </div>
+                <div class="profile-username">
+                    {{ appoint.start_time }} to {{ appoint.end_time }}
+                </div>
+                <div class="profile-username">
+                    {{ appoint.visit_date }}
+                </div>
+                {% if as_admin %}
+                    <div class="profile-username">
+                        payment Id: {{ appoint.payment.idx }}
+                    </div>
+                {% endif %}
+                <br/>
+            </div>
+            <div class="cust-reveal">
+                {% if has_edit %}
+                    <a class="p-2 ui icon button" style="margin-right:13px" href="{% if has_patient_edit %}{% url 'app:patientdocappoint' appoint.doctor.username appoint.pk %}{% else %}{% url 'app:doctorappointmentsedit' appoint.pk %}{% endif %}" >
+                        Edit
+                    </a>
+                {% endif %}
+                <a class="p-2 ui icon button"  href="{% url 'app:appointmentdelete' appoint.pk %}"  >
+                    Delete
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+</div>

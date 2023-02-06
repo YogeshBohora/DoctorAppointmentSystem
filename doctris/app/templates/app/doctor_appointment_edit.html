@@ -1,0 +1,7 @@
+{% extends 'app/doctor_page.html' %}
+
+{% block home_click %}{% url "app:doctor" %}{% endblock %}
+{% block appointments_active %} active {% endblock %}
+{% block tab_content %}
+    {% include './components/appointment_form.html' with as_doctor=True %}
+{% endblock %}

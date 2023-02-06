@@ -1,0 +1,129 @@
+{% if not success %}
+    <div class="ui left aligned basic segment" >
+        {% include './infoList/availiability.html' with obj=avaliability as_doctor=as_doctor title="Your Working Hours"%}
+        {% include './infoList/appointments.html' with obj=appointments as_doctor=as_doctor title="Your Appointments"%}
+        <div class="ui horizontal divider" >
+            {% if as_edit %} 
+                Edit Appointment  
+            {% else %}
+                Make Appointment 
+            {% endif %}
+        </div>
+        <div style="padding:14px;">
+            <form class="ui form admin-pat-form" action="" id="my-form" method="POST" autocomplete="off">
+                {% csrf_token %} 
+                <div class="field required">
+                    <label>Visit Date</label>
+                    <input type="date" id="visiting_date" {% if as_edit %} value="{{obj.visit_date}}" {% endif %} name="visit_date" min="{{today_date}}" required>
+                </div>
+                <div class="two fields">
+                    <div class="field required">
+                        <label>Start Time</label>
+                        <input type="time" id="starting_time" {% if as_edit %} value="{{obj.start_time}}" {% endif %} name="start_time" min="00:00" max="24:00" required>
+                    </div>
+                    <div class="field required">
+                        <label>End Time</label>
+                        <input type="time" id="ending_time"  {% if as_edit %} value="{{obj.end_time}}" {% endif %}  name="end_time" min="00:00" max="24:00" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <label>Appointment Notes</label>
+                    {% if as_edit %}
+                        <textarea rows="2" name="invite_reason"> {{obj.invite_reason}} </textarea>
+                    {% endif %}
+                    {% if not as_edit %}
+                        <textarea rows="2" name="invite_reason">-</textarea>
+                    {% endif %}
+                </div>
+                <div class="ui error message"></div>
+                {% if invalid_time %}
+                    <div class="ui negative message">
+                        <p> Ending time was before Start time. <br/><br/>Please enter again. </p>
+                    </div>
+                {% endif %}
+                {% if invalid_weekday %}
+                    <div class="ui negative message">
+                        <p> Dr. {{doctor.full_name}} is not avaliable that day of the week! 
+                            <br/><br/>Please choose any other avaliable date.</p>
+                    </div>
+                {% endif %}
+                {% if invalid_appointment_time %}
+                    <div class="ui negative message">
+                        <p> Dr. {{doctor.full_name}} is not avaliable that time of the day! <br/><br/>Please choose any other avaliable time.</p>
+                    </div>
+                {% endif %}
+                {% if has_appointment_collision %}
+                    <div class="ui negative message">
+                        <p> Dr. {{doctor.full_name}} has another appointment that day! <br/><br/>Please choose any other avaliable time.</p>
+                    </div>
+                {% endif %}
+                <div style="padding:14px;"></div>
+                <div class="ui horizontal divider" >
+                            {% if as_doctor or as_edit %}
+                                <button class="ui teal button"type="submit" >
+                                    Submit
+                                </button>
+                            {% else %}
+                                <button class="ui teal button" type="submit" id="payment-button">
+                                    Proceed to Payment
+                                </button>
+                            {% endif %}
+
+                </div>
+            </form>
+        </div>
+    </div>
+{% if show_payment %}
+    <script>
+        var mobile = "{{patient.phone}}"
+        var config = {
+            "publicKey": "test_public_key_58b9d420775545388d85f7e97fde03bf",
+            "productIdentity": "doctor_appointment",
+            "productName": "Doctor_Appointment_Test",
+            "productUrl": 'http://127.0.0.1:8000/patient/appointments',
+            "eventHandler": {
+                onSuccess (payload) {
+                    console.log("payment successful");
+                    console.log(JSON.stringify(payload));
+                    var input = $("<input>")
+                        .attr("type", "hidden")
+                        .attr("name", "config").val(JSON.stringify(payload));
+                    $('#my-form').append(input)
+                    document.getElementById('my-form').submit();
+                },
+                onError (error) {
+                    console.log("error with payment");
+                    alert(error.payload.error_key);
+                    console.log(error);
+                },
+                onClose () {
+                    console.log('widget is closing');
+                }
+            }
+        };
+        var checkout = new KhaltiCheckout(config);
+        checkout.show({amount: 1000, mobile});
+    </script>
+{% endif %}
+{% else %}
+    <div class="ui center aligned basic segment" style="margin-top: 60px;">
+        <h1 class="ui icon header">
+            <i class="check circle huge icon"></i>
+            Success
+        </h1>
+        <div class="ui horizontal divider" style="margin-top: 60px;">
+            &nbsp;
+        </div>
+        <div>
+            <a class="ui teal  labeled icon button"type="submit" autofocus href="{% url "app:patientappointments" %}" >
+                See Appointments
+                <i class="eye icon" style="color:white"></i>
+            </a>
+            <a class="ui teal labeled icon button"type="submit" href="{% url "app:patienthome" %}"  >
+                Make New
+                <i class="add icon" style="color:white"></i>
+            </a>
+        </div>
+    </div>
+{% endif %}
+    

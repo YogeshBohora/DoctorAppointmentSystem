@@ -1,0 +1,81 @@
+{% extends 'app/patient_page.html' %}
+
+{% block home_click %}{% url "app:patient" %}{% endblock %}
+{% block home_active %} active {% endblock %}
+{% block right_menu%}
+    
+        <li><a class="item"  href="{% url 'app:patienteditinfo' %}" style="color: #5174D5; text-decoration: none; font-weight: bold;" >Update Info</a></li>
+        <li><a class="item"  href="{% url 'app:patienteditcred' %}" style="color: #5174D5; text-decoration: none; font-weight: bold;">Change Password</a></li>
+      
+{% endblock %}
+{% block tab_content %}
+    <div class="">
+        <div  class="pt-5 w-75 mx-auto">
+            <div class="d-flex flex-row align-items-center" style="background-color: white; border-radius: 7px;">
+                <div>
+                    <img src="../../static/app/images/hero-illustration.png" style="height: 100px;" alt="Banner" class="img-fluid">
+                </div>
+                <div> Wishing you good health! Search for doctors here.</div>
+            </div>
+            
+        </div>
+       
+        
+        <div style="padding:14px;"></div>
+        <hr>
+        <div class="ui horizontal divider ms-5" >
+            Doctors
+        </div>
+        <div class="mx-5" style="padding:14px;">
+            <div class="row no-gutters">
+                {% for doc in doctors %}
+                    <div class="col-md-4 cust-list spacer doctors">
+                        <div class="p-3" style="max-width: 400px; background-color: white; border-top: 3px solid #5174D5;">
+                            <div>
+                                <div class="profile-header">
+                                    {{ doc.full_name }}
+                                    
+                                    <div class="speciality">
+                                        <div>Speciality -</div>
+                                        {% for specialty in metadata.specialty %}
+                                            {% if specialty.username == doc.username %}
+                                                    {% for a in specialty.data %}
+                                                        {{a.0}}
+                                                        , &nbsp;
+                                                    {% endfor %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        
+
+
+                                    </div>
+                                </div>
+                                <div class="mt-3" style="color: #5174D5;">Schedules available</div>
+                                    {% for avail in metadata.avails %}
+                                        {% if avail.username == doc.username %}
+                                            <div class="profile-username">
+                                                {% for a in avail.data %}
+                                                    {{a.0}} : &nbsp; {{a.1}} to {{a.2}}
+                                                    <br/>
+                                                {% endfor %}
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+                                    {% comment %} @ {{ doc.city }}, {{hosp.country}} {% endcomment %}
+                                <br/>
+                            </div>
+                            <div class="cust-reveal reveal">
+                                <a class="ui icon button" style="margin-right:13px"   href="{% url 'app:patientdocview' doc.username  %}" >
+                                   View
+                                </a>
+                                <a class="ui icon button"  href="{% url 'app:patientdocappoint' doc.username '-1' %}" >
+                                    Add
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>        
+    </div>
+{% endblock %}
